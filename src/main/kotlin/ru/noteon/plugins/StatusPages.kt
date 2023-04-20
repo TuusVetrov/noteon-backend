@@ -6,8 +6,8 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import ru.noteon.api.exception.BadRequestException
 import ru.noteon.api.exception.ExceptionMessages
-import ru.noteon.api.models.response.FailureResponse
-import ru.noteon.api.models.response.State
+import ru.noteon.data.model.response.FailureResponse
+import ru.noteon.data.model.response.State
 
 fun Application.configureStatusPages() {
     install(StatusPages) {

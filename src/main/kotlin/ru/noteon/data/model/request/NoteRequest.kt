@@ -1,4 +1,4 @@
-package ru.noteon.api.models.request
+package ru.noteon.data.model.request
 
 import kotlinx.serialization.Serializable
 

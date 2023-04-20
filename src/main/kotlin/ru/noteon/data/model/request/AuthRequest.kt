@@ -1,16 +1,15 @@
-package ru.noteon.api.models.request
+package ru.noteon.data.model.request
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class RegistrationRequest(
-    val username: String,
+    val email: String,
     val password: String,
-    val email: String
 )
 
 @Serializable
 data class LoginRequest(
-    val username: String,
-    val password: String
+    val email: String,
+    val password: String,
 )

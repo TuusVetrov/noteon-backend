@@ -1,11 +1,11 @@
-package ru.noteon.data.dao
+package ru.noteon.data.dao.note
 
-import ru.noteon.data.model.Note
+import ru.noteon.data.model.NoteModel
 
-interface NoteDao {
+interface NoteDaoFacade {
     suspend fun add(userId: String, title: String, body: String): String
     suspend fun deleteById(id: String): Boolean
-    suspend fun getAllByUser(userId: String): List<Note>
+    suspend fun getAllByUser(userId: String): List<NoteModel>
     suspend fun update(id: String, title: String, body: String): String
     suspend fun updateNotePinById(id: String, isPinned: Boolean): String
 

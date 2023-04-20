@@ -2,14 +2,16 @@ package ru.noteon.di.component
 
 import dagger.Lazy
 import dagger.Subcomponent
-import ru.noteon.data.dao.NoteDao
-import ru.noteon.data.dao.UserDao
+import ru.noteon.data.dao.note.NoteDaoFacade
+import ru.noteon.data.dao.token.TokenDaoFacade
+import ru.noteon.data.dao.user.UserDaoFacade
 import ru.noteon.di.module.DaoModule
 import javax.inject.Singleton
 
 @Singleton
 @Subcomponent(modules = [DaoModule::class])
 interface DaoComponent {
-    fun userDao(): Lazy<UserDao>
-    fun noteDao(): Lazy<NoteDao>
+    fun userDao(): Lazy<UserDaoFacade>
+    fun noteDao(): Lazy<NoteDaoFacade>
+    fun tokenDao(): Lazy<TokenDaoFacade>
 }

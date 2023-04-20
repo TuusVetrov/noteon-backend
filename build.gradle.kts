@@ -38,7 +38,7 @@ dependencies {
 
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0-RC")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
     implementation("io.ktor:ktor-server-status-pages:$ktor_version")
@@ -60,4 +60,8 @@ dependencies {
     // Dagger
     implementation ("com.google.dagger:dagger:$dagger_version")
     kapt ("com.google.dagger:dagger-compiler:$dagger_version")
+
+    implementation("org.mindrot:jbcrypt:0.4")
+
+    implementation("com.github.arslan-azizov:ktor-nodemailer:1.0.1")
 }

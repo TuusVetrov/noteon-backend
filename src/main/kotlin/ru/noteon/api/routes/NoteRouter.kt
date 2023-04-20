@@ -6,14 +6,14 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ru.noteon.api.auth.principal.UserPrincipal
+import ru.noteon.data.model.principal.UserPrincipal
 import ru.noteon.api.controllers.NotesController
 import ru.noteon.api.exception.BadRequestException
 import ru.noteon.api.exception.ExceptionMessages
 import ru.noteon.api.exception.UnauthorizedActivityException
-import ru.noteon.api.models.request.NoteRequest
-import ru.noteon.api.models.request.PinRequest
-import ru.noteon.api.models.response.generateHttpResponse
+import ru.noteon.data.model.request.NoteRequest
+import ru.noteon.data.model.request.PinRequest
+import ru.noteon.data.model.response.generateHttpResponse
 import ru.noteon.plugins.controllers
 
 fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesController()) {
@@ -22,7 +22,7 @@ fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesCont
             val principal = call.principal<UserPrincipal>()
                 ?: throw UnauthorizedActivityException(ExceptionMessages.MESSAGE_ACCESS_DENIED)
 
-            val notesResponse = notesController.get().getNotesByUser(principal.user)
+            val notesResponse = notesController.get().getNotesByUser(principal.userModel)
             val response = generateHttpResponse(notesResponse)
 
             call.respond(response.code, response.body)
@@ -37,7 +37,7 @@ fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesCont
                 val principal = call.principal<UserPrincipal>()
                     ?: throw UnauthorizedActivityException(ExceptionMessages.MESSAGE_ACCESS_DENIED)
 
-                val noteResponse = notesController.get().addNote(principal.user, noteRequest)
+                val noteResponse = notesController.get().addNote(principal.userModel, noteRequest)
                 val response = generateHttpResponse(noteResponse)
 
                 call.respond(response.code, response.body)
@@ -52,7 +52,7 @@ fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesCont
                 val principal = call.principal<UserPrincipal>()
                     ?: throw UnauthorizedActivityException(ExceptionMessages.MESSAGE_ACCESS_DENIED)
 
-                val noteResponse = notesController.get().updateNote(principal.user, noteId, noteRequest)
+                val noteResponse = notesController.get().updateNote(principal.userModel, noteId, noteRequest)
                 val response = generateHttpResponse(noteResponse)
 
                 call.respond(response.code, response.body)
@@ -63,7 +63,7 @@ fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesCont
                 val principal = call.principal<UserPrincipal>()
                     ?: throw UnauthorizedActivityException(ExceptionMessages.MESSAGE_ACCESS_DENIED)
 
-                val noteResponse = notesController.get().deleteNote(principal.user, noteId)
+                val noteResponse = notesController.get().deleteNote(principal.userModel, noteId)
                 val response = generateHttpResponse(noteResponse)
 
                 call.respond(response.code, response.body)
@@ -78,7 +78,7 @@ fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesCont
                 val principal = call.principal<UserPrincipal>()
                     ?: throw UnauthorizedActivityException(ExceptionMessages.MESSAGE_ACCESS_DENIED)
 
-                val noteResponse = notesController.get().updateNotePin(principal.user, noteId, pinRequest)
+                val noteResponse = notesController.get().updateNotePin(principal.userModel, noteId, pinRequest)
                 val response = generateHttpResponse(noteResponse)
 
                 call.respond(response.code, response.body)

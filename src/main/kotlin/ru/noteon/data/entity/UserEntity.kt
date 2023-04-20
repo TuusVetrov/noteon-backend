@@ -10,6 +10,7 @@ class UserEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<UserEntity>(UserTable)
 
     var username by UserTable.username
-    var password by UserTable.password
     var email by UserTable.email
+    var password by UserTable.password
+    var isActivated by UserTable.isActivated
 }

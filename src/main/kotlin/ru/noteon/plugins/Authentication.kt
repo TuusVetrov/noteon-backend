@@ -6,17 +6,17 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import ru.noteon.api.auth.JWTController
 import ru.noteon.api.auth.NoteonJWTController
-import ru.noteon.api.auth.principal.UserPrincipal
-import ru.noteon.data.dao.UserDao
+import ru.noteon.data.model.principal.UserPrincipal
+import ru.noteon.data.dao.user.UserDaoFacade
 import java.util.*
 
 fun Application.configureAuthentication(
     jwtController: Lazy<JWTController> = appComponent.controllerComponent().jwtController(),
-    userDao: Lazy<UserDao> = appComponent.daoComponent().userDao()
+    userDao: Lazy<UserDaoFacade> = appComponent.daoComponent().userDao()
 ) {
     install(Authentication) {
-        jwt {
-            verifier(jwtController.get().verifier)
+        jwt() {
+            verifier(jwtController.get().verifyAccessToken)
             validate {
 
                 // Extract userId from token

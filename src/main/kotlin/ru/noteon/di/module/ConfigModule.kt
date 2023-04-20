@@ -29,6 +29,11 @@ object ConfigModule {
 
     @Singleton
     @Provides
-    @SecretKey
-    fun secretKey(config: ApplicationConfig): String = config.property("key.secret").getString()
+    @AccessSecretKey
+    fun accessSecretKey(config: ApplicationConfig): String = config.property("key.jwt_access_key").getString()
+
+    @Singleton
+    @Provides
+    @RefreshSecretKey
+    fun refreshSecretKey(config: ApplicationConfig): String = config.property("key.jwt_refresh_key").getString()
 }

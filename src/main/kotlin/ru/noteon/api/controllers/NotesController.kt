@@ -3,21 +3,21 @@ package ru.noteon.api.controllers
 import ru.noteon.api.exception.BadRequestException
 import ru.noteon.api.exception.NoteNotFoundException
 import ru.noteon.api.exception.UnauthorizedActivityException
-import ru.noteon.api.models.request.NoteRequest
-import ru.noteon.api.models.request.PinRequest
-import ru.noteon.api.models.response.NotesListResponse
-import ru.noteon.data.dao.NoteDao
-import ru.noteon.data.model.User
-import ru.noteon.api.models.response.Note
-import ru.noteon.api.models.response.NoteResponse
+import ru.noteon.data.model.request.NoteRequest
+import ru.noteon.data.model.request.PinRequest
+import ru.noteon.data.model.response.NotesListResponse
+import ru.noteon.data.dao.note.NoteDaoFacade
+import ru.noteon.data.model.UserModel
+import ru.noteon.data.model.response.Note
+import ru.noteon.data.model.response.NoteResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class NotesController @Inject constructor(private val noteDao: NoteDao) {
-    suspend fun getNotesByUser(user: User): NotesListResponse {
+class NotesController @Inject constructor(private val noteDao: NoteDaoFacade) {
+    suspend fun getNotesByUser(userModel: UserModel): NotesListResponse {
         return try {
-            val notes = noteDao.getAllByUser(user.id)
+            val notes = noteDao.getAllByUser(userModel.id)
 
             NotesListResponse.success(notes.map { Note(it.id, it.title, it.body, it.created, it.isPinned) })
         } catch (uae: UnauthorizedActivityException) {
@@ -25,28 +25,28 @@ class NotesController @Inject constructor(private val noteDao: NoteDao) {
         }
     }
 
-    suspend fun addNote(user: User, note: NoteRequest): NoteResponse {
+    suspend fun addNote(userModel: UserModel, note: NoteRequest): NoteResponse {
         return try {
             val noteTitle = note.title.trim()
             val noteText = note.body.trim()
 
             validateNoteOrThrowException(noteTitle, noteText)
 
-            val noteId = noteDao.add(user.id, noteTitle, noteText)
+            val noteId = noteDao.add(userModel.id, noteTitle, noteText)
             NoteResponse.success(noteId)
         } catch (bre: BadRequestException) {
             NoteResponse.failed(bre.message)
         }
     }
 
-    suspend fun updateNote(user: User, noteId: String, note: NoteRequest): NoteResponse {
+    suspend fun updateNote(userModel: UserModel, noteId: String, note: NoteRequest): NoteResponse {
         return try {
             val noteTitle = note.title.trim()
             val noteText = note.body.trim()
 
             validateNoteOrThrowException(noteTitle, noteText)
             checkNoteExistsOrThrowException(noteId)
-            checkOwnerOrThrowException(user.id, noteId)
+            checkOwnerOrThrowException(userModel.id, noteId)
 
             val id = noteDao.update(noteId, noteTitle, noteText)
             NoteResponse.success(id)
@@ -59,10 +59,10 @@ class NotesController @Inject constructor(private val noteDao: NoteDao) {
         }
     }
 
-    suspend fun deleteNote(user: User, noteId: String): NoteResponse {
+    suspend fun deleteNote(userModel: UserModel, noteId: String): NoteResponse {
         return try {
             checkNoteExistsOrThrowException(noteId)
-            checkOwnerOrThrowException(user.id, noteId)
+            checkOwnerOrThrowException(userModel.id, noteId)
 
             if (noteDao.deleteById(noteId)) {
                 NoteResponse.success(noteId)
@@ -78,10 +78,10 @@ class NotesController @Inject constructor(private val noteDao: NoteDao) {
         }
     }
 
-    suspend fun updateNotePin(user: User, noteId: String, pinRequest: PinRequest): NoteResponse {
+    suspend fun updateNotePin(userModel: UserModel, noteId: String, pinRequest: PinRequest): NoteResponse {
         return try {
             checkNoteExistsOrThrowException(noteId)
-            checkOwnerOrThrowException(user.id, noteId)
+            checkOwnerOrThrowException(userModel.id, noteId)
             val id = noteDao.updateNotePinById(noteId, pinRequest.isPinned)
             NoteResponse.success(id)
         } catch (uae: UnauthorizedActivityException) {

@@ -3,17 +3,18 @@ package ru.noteon.data.database
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.noteon.config.DatabaseConfig
 import ru.noteon.data.database.tables.NoteTable
+import ru.noteon.data.database.tables.TokenTable
 import ru.noteon.data.database.tables.UserTable
 
-object DatabaseProvider {
+object DatabaseFactory {
     fun initDatabase(databaseConfig: DatabaseConfig) {
-        val tables = arrayOf(UserTable, NoteTable)
+        val tables = arrayOf(UserTable, NoteTable, TokenTable)
 
         Database.connect(createDataSource(databaseConfig))
 
@@ -35,8 +36,6 @@ object DatabaseProvider {
         return HikariDataSource(config)
     }
 
-    suspend fun <T> dbQuery(block: () -> T): T =
-        withContext(Dispatchers.IO) {
-            transaction { block() }
-        }
+    suspend fun <T> dbQuery(block: suspend () -> T): T =
+        newSuspendedTransaction(Dispatchers.IO) { block() }
 }

@@ -1,4 +1,4 @@
-package ru.noteon.api.models.response
+package ru.noteon.data.model.response
 
 import io.ktor.http.*
 

@@ -1,4 +1,4 @@
-package ru.noteon.api.models.response
+package ru.noteon.data.model.response
 
 enum class State {
     SUCCESS, NOT_FOUND, FAILED, UNAUTHORIZED

@@ -1,4 +1,4 @@
-package ru.noteon.api.models.response
+package ru.noteon.data.model.response
 
 import kotlinx.serialization.Serializable
 
@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 data class AuthResponse(
     override val status: State,
     override val message: String,
-    val token: String? = null
+    val accessToken: String? = null,
+    val refreshToken: String? = null
 ): Response {
     companion object {
         fun failed(message: String) = AuthResponse(
@@ -19,10 +20,11 @@ data class AuthResponse(
             message
         )
 
-        fun success(token: String, message: String) = AuthResponse(
+        fun success(accessToken: String, refreshToken: String, message: String) = AuthResponse(
             State.SUCCESS,
             message,
-            token
+            accessToken,
+            refreshToken,
         )
     }
 }

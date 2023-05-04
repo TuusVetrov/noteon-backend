@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NoteRequest(
     val title: String,
-    val body: String
+    val body: String,
+    val folderId: String,
 )
 
 @Serializable

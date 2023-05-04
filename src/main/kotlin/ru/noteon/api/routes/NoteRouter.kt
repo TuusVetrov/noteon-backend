@@ -16,7 +16,9 @@ import ru.noteon.data.model.request.PinRequest
 import ru.noteon.data.model.response.generateHttpResponse
 import ru.noteon.plugins.controllers
 
-fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesController()) {
+fun Route.noteApi(
+    notesController: Lazy<NotesController> = controllers.notesController()
+) {
     authenticate {
         get("/notes") {
             val principal = call.principal<UserPrincipal>()
@@ -25,6 +27,16 @@ fun Route.noteApi(notesController: Lazy<NotesController> = controllers.notesCont
             val notesResponse = notesController.get().getNotesByUser(principal.userModel)
             val response = generateHttpResponse(notesResponse)
 
+            call.respond(response.code, response.body)
+        }
+
+        get("/{folderId}/notes") {
+            val folderId = call.parameters["folderId"] ?: return@get
+            val principal = call.principal<UserPrincipal>()
+                ?: throw UnauthorizedActivityException(ExceptionMessages.MESSAGE_ACCESS_DENIED)
+
+            val notesResponse = notesController.get().getAllFromFolder(principal.userModel, folderId)
+            val response = generateHttpResponse(notesResponse)
             call.respond(response.code, response.body)
         }
 

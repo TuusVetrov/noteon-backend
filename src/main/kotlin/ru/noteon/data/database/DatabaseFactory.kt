@@ -8,13 +8,14 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.noteon.config.DatabaseConfig
+import ru.noteon.data.database.tables.FolderTable
 import ru.noteon.data.database.tables.NoteTable
 import ru.noteon.data.database.tables.TokenTable
 import ru.noteon.data.database.tables.UserTable
 
 object DatabaseFactory {
     fun initDatabase(databaseConfig: DatabaseConfig) {
-        val tables = arrayOf(UserTable, NoteTable, TokenTable)
+        val tables = arrayOf(UserTable, NoteTable, TokenTable, FolderTable)
 
         Database.connect(createDataSource(databaseConfig))
 

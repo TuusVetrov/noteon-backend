@@ -7,6 +7,7 @@ import ru.noteon.config.AppConstants.MAX_NOTE_TITLE_LENGTH
 
 object NoteTable: UUIDTable() {
     val author = reference("author", UserTable)
+    var folder = reference("folder", FolderTable)
     var title = varchar("noteTitle", length = MAX_NOTE_TITLE_LENGTH)
     var body = text("noteBody")
     var created = datetime("created").default(DateTime.now())

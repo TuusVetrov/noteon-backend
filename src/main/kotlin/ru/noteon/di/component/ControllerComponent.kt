@@ -4,6 +4,7 @@ import dagger.Lazy
 import dagger.Subcomponent
 import ru.noteon.api.auth.JWTController
 import ru.noteon.api.controllers.AuthController
+import ru.noteon.api.controllers.FoldersController
 import ru.noteon.api.controllers.NotesController
 import ru.noteon.di.module.ConfigModule
 import ru.noteon.di.module.ControllerModule
@@ -16,5 +17,6 @@ import javax.inject.Singleton
 interface ControllerComponent {
     fun authController(): Lazy<AuthController>
     fun notesController(): Lazy<NotesController>
+    fun foldersController(): Lazy<FoldersController>
     fun jwtController(): Lazy<JWTController>
 }

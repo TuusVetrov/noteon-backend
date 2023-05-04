@@ -2,7 +2,9 @@ package ru.noteon.api.exception
 
 object ExceptionMessages {
     const val MESSAGE_MISSING_CREDENTIALS = "Required 'email' or 'password' missing."
-    const val MESSAGE_MISSING_NOTE_DETAILS = "Required 'title' or 'note' missing."
+    const val MESSAGE_MISSING_NOTE_DETAILS = "Required 'title', 'note' or 'folderId' missing."
+
+    const val MESSAGE_MISSING_FOLDER_DETAILS = "Required 'folderName' missing."
 
     const val MESSAGE_MISSING_REFRESH_TOKEN = "Required 'refreshToken' missing."
     const val MESSAGE_REFRESH_TOKEN_INVALID = "Refresh token is invalid."

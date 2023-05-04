@@ -3,6 +3,7 @@ package ru.noteon.data.entity
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import ru.noteon.data.database.tables.FolderTable
 import ru.noteon.data.database.tables.NoteTable
 import java.util.UUID
 
@@ -10,6 +11,7 @@ class NoteEntity(id: EntityID<UUID>): UUIDEntity(id) {
     companion object : UUIDEntityClass<NoteEntity>(NoteTable)
 
     var author by UserEntity referencedOn NoteTable.author
+    var folder by FolderEntity referencedOn NoteTable.folder
     var title by NoteTable.title
     var body by  NoteTable.body
     var created by NoteTable.created

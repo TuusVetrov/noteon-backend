@@ -3,51 +3,51 @@ package ru.noteon.data.model.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Note(val id: String, val folder: String, val title: String, val body: String, val created: Long, val isPinned: Boolean)
+data class Folder(val id: String, val folderName: String)
 
 @Serializable
-data class NotesListResponse(
+data class FoldersListResponse (
     override val status: State,
     override val message: String,
-    val notes: List<Note> = emptyList()
+    val folders: List<Folder> = emptyList(),
 ): Response {
     companion object {
-        fun unauthorized(message: String) = NotesListResponse(
+        fun unauthorized(message: String) = FoldersListResponse(
             State.UNAUTHORIZED,
-            message
+            message,
         )
 
-        fun success(notes: List<Note>) = NotesListResponse(
+        fun success(folders: List<Folder>) = FoldersListResponse(
             State.SUCCESS,
             "Task successful",
-            notes
+            folders
         )
     }
 }
 
 @Serializable
-data class NoteResponse(
+data class FolderResponse(
     override val status: State,
     override val message: String,
-    val noteId: String? = null
+    val folderId: String? = null
 ): Response {
     companion object {
-        fun unauthorized(message: String) = NoteResponse(
+        fun unauthorized(message: String) = FolderResponse(
             State.UNAUTHORIZED,
             message
         )
 
-        fun failed(message: String) = NoteResponse(
+        fun failed(message: String) = FolderResponse(
             State.FAILED,
             message
         )
 
-        fun notFound(message: String) = NoteResponse(
+        fun notFound(message: String) = FolderResponse(
             State.NOT_FOUND,
             message
         )
 
-        fun success(id: String) = NoteResponse(
+        fun success(id: String) = FolderResponse(
             State.SUCCESS,
             "Task successful",
             id

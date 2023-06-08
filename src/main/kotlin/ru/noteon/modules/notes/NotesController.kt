@@ -1,8 +1,8 @@
-package ru.noteon.api.controllers
+package ru.noteon.modules.notes
 
-import ru.noteon.api.exception.BadRequestException
-import ru.noteon.api.exception.NoteNotFoundException
-import ru.noteon.api.exception.UnauthorizedActivityException
+import ru.noteon.modules.exception.BadRequestException
+import ru.noteon.modules.exception.NoteNotFoundException
+import ru.noteon.modules.exception.UnauthorizedActivityException
 import ru.noteon.data.dao.folder.FolderDaoFacade
 import ru.noteon.data.model.request.NoteRequest
 import ru.noteon.data.model.request.PinRequest

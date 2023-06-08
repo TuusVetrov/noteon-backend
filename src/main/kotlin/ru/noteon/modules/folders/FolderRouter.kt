@@ -1,4 +1,4 @@
-package ru.noteon.api.routes
+package ru.noteon.modules.folders
 
 import dagger.Lazy
 import io.ktor.server.application.*
@@ -6,10 +6,9 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ru.noteon.api.controllers.FoldersController
-import ru.noteon.api.exception.BadRequestException
-import ru.noteon.api.exception.ExceptionMessages
-import ru.noteon.api.exception.UnauthorizedActivityException
+import ru.noteon.modules.exception.BadRequestException
+import ru.noteon.modules.exception.ExceptionMessages
+import ru.noteon.modules.exception.UnauthorizedActivityException
 import ru.noteon.data.model.principal.UserPrincipal
 import ru.noteon.data.model.request.FolderRequest
 import ru.noteon.data.model.response.generateHttpResponse

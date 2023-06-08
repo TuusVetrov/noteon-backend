@@ -2,8 +2,8 @@ package ru.noteon.di.module
 
 import dagger.Binds
 import dagger.Module
-import ru.noteon.api.auth.JWTController
-import ru.noteon.api.auth.NoteonJWTController
+import ru.noteon.modules.auth.JWTController
+import ru.noteon.modules.auth.NoteonJWTController
 import javax.inject.Singleton
 
 @Module

@@ -4,8 +4,8 @@ import dagger.Lazy
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
-import ru.noteon.api.auth.JWTController
-import ru.noteon.api.auth.NoteonJWTController
+import ru.noteon.modules.auth.JWTController
+import ru.noteon.modules.auth.NoteonJWTController
 import ru.noteon.data.model.principal.UserPrincipal
 import ru.noteon.data.dao.user.UserDaoFacade
 import java.util.*

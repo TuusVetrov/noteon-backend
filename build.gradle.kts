@@ -62,6 +62,4 @@ dependencies {
     kapt ("com.google.dagger:dagger-compiler:$dagger_version")
 
     implementation("org.mindrot:jbcrypt:0.4")
-
-    implementation("com.github.arslan-azizov:ktor-nodemailer:1.0.1")
 }

@@ -1,4 +1,4 @@
-package ru.noteon.api.auth
+package ru.noteon.utils
 
 import org.mindrot.jbcrypt.BCrypt
 import javax.inject.Inject

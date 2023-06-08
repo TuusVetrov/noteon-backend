@@ -1,12 +1,16 @@
-package ru.noteon.api.controllers
+package ru.noteon.modules.folders
 
-import ru.noteon.api.exception.BadRequestException
-import ru.noteon.api.exception.NoteNotFoundException
-import ru.noteon.api.exception.UnauthorizedActivityException
+import ru.noteon.modules.exception.BadRequestException
+import ru.noteon.modules.exception.NoteNotFoundException
+import ru.noteon.modules.exception.UnauthorizedActivityException
 import ru.noteon.data.dao.folder.FolderDaoFacade
 import ru.noteon.data.model.UserModel
 import ru.noteon.data.model.request.FolderRequest
 import ru.noteon.data.model.response.*
+import ru.noteon.data.model.response.Folder
+import ru.noteon.data.model.response.FolderResponse
+import ru.noteon.data.model.response.FoldersListResponse
+import ru.noteon.data.model.response.NoteResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 

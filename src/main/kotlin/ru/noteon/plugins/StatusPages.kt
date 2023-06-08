@@ -4,8 +4,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
-import ru.noteon.api.exception.BadRequestException
-import ru.noteon.api.exception.ExceptionMessages
+import ru.noteon.modules.exception.BadRequestException
+import ru.noteon.modules.exception.ExceptionMessages
 import ru.noteon.data.model.response.FailureResponse
 import ru.noteon.data.model.response.State
 

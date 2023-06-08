@@ -2,6 +2,8 @@ package ru.noteon.data.dao.user
 
 import ru.noteon.data.database.DatabaseFactory
 import ru.noteon.data.database.tables.UserTable
+import ru.noteon.data.entity.FolderEntity
+import ru.noteon.data.entity.NoteEntity
 import ru.noteon.data.entity.UserEntity
 import ru.noteon.data.model.UserModel
 import java.util.*
@@ -17,6 +19,21 @@ class UserDaoImpl @Inject constructor() : UserDaoFacade {
             this.username = username
         }
     }.let { UserModel.fromEntity(it) }
+
+    override suspend fun updateUserData(userId: String, newUsername: String, newEmail: String): String =
+        DatabaseFactory.dbQuery {
+            UserEntity[UUID.fromString(userId)].apply {
+                this.username = newUsername
+                this.email = newEmail
+            }.id.value.toString()
+        }
+
+    override suspend fun updateUserPassword(userId: String, newPassword: String): String =
+        DatabaseFactory.dbQuery {
+            UserEntity[UUID.fromString(userId)].apply {
+                this.password = newPassword
+            }.id.value.toString()
+        }
 
     override suspend fun findByUUID(uuid: UUID): UserModel? = DatabaseFactory.dbQuery {
         UserEntity.findById(uuid)

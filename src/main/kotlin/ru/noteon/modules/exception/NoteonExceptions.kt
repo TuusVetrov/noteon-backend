@@ -1,4 +1,4 @@
-package ru.noteon.api.exception
+package ru.noteon.modules.exception
 
 class NoteNotFoundException(override val message: String) : Exception(message)
 

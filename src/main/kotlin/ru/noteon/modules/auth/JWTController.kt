@@ -1,4 +1,4 @@
-package ru.noteon.api.auth
+package ru.noteon.modules.auth
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
@@ -59,7 +59,7 @@ class NoteonJWTController @Inject constructor(@AccessSecretKey accessSecretKey: 
         private const val ISSUER = "Noteon-JWT-Issuer"
         private const val AUDIENCE = "https://localhost:8080"
         const val ClAIM = "userId"
-        private const val ACCESS_TOKEN_VALIDITY = 30 * 60 * 1000L // 30 minutes
+        private const val ACCESS_TOKEN_VALIDITY = 30 * 24 * 60 * 60 * 1000L//30 * 60 * 1000L // 30 minutes
         private const val REFRESH_TOKEN_VALIDITY = 30 * 24 * 60 * 60 * 1000L // 30 days
     }
 }
